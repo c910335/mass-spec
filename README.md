@@ -17,7 +17,6 @@ development_dependencies:
 ```crystal
 require "spec"
 require "mass_spec"
-include MassSpec::GlobalDSL
 
 server = HTTP::Server.new(8080) do |context|
   context.response.content_type = "application/json"
