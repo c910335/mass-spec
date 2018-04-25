@@ -1,8 +1,10 @@
 require "http/client"
 require "http/server"
+require "json"
 require "./mass_spec/*"
 require "./http/server"
 
 module MassSpec
-  class_property! server : HTTP::Server
+  include Properties
+  include GlobalDSL
 end
