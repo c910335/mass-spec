@@ -3,11 +3,13 @@ module MassSpec::Properties
     class_property! server : HTTP::Server
     class_getter! response : HTTP::Client::Response
     class_getter! headers : HTTP::Headers
+    class_getter! status_code : Int32
     class_getter! body : String
     class_getter! json_body : JSON::Type
 
     def self.response=(@@response)
       @@headers = response.headers
+      @@status_code = response.status_code
       @@body = response.body
       @@json_body = nil
     end

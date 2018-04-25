@@ -7,7 +7,7 @@ module MassSpec::GlobalDSL
     end
   {% end %}
 
-  {% for getter in %w(response headers body json_body) %}
+  {% for getter in %w(response headers status_code body json_body) %}
     def {{getter.id}}
       MassSpec.{{getter.id}}
     end
