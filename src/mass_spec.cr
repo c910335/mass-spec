@@ -1,6 +1,8 @@
+require "http/client"
+require "http/server"
 require "./mass_spec/*"
+require "./http/server"
 
-# TODO: Write documentation for `MassSpec`
 module MassSpec
-  # TODO: Put your code here
+  class_property! server : HTTP::Server
 end
