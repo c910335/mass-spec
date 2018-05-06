@@ -6,6 +6,5 @@ require "./http/server"
 
 module MassSpec
   include Properties
+  extend GlobalDSL
 end
-
-include MassSpec::GlobalDSL

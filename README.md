@@ -17,6 +17,7 @@ development_dependencies:
 ```crystal
 require "spec"
 require "mass_spec"
+include MassSpec::GlobalDSL
 
 server = HTTP::Server.new(8080) do |context|
   context.response.content_type = "application/json"
@@ -28,6 +29,7 @@ server.listen
 describe "Server" do
   it "returns the path in json" do
     get("/nas/beru/uhn'adarr")
+
     status_code.should eq(200)
     body.should eq(%({"path":"/nas/beru/uhn'adarr"}))
     json_body.should eq({"path" => "/nas/beru/uhn'adarr"})
