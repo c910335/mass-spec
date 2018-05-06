@@ -31,6 +31,7 @@ describe "Server" do
     get("/nas/beru/uhn'adarr")
 
     status_code.should eq(200)
+    headers.should contain({"Content-Type", ["application/json"]})
     body.should eq(%({"path":"/nas/beru/uhn'adarr"}))
     json_body.should eq({"path" => "/nas/beru/uhn'adarr"})
   end

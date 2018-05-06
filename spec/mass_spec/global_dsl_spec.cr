@@ -1,5 +1,4 @@
 require "../spec_helper"
-include MassSpec::GlobalDSL
 
 server = HTTP::Server.new(8080) do |context|
   context.response.content_type = "application/json"
