@@ -63,6 +63,37 @@ After a request, you can access these getters.
 - body : [`String`](https://crystal-lang.org/api/latest/String.html)
 - json_body : [`JSON::Type`](https://crystal-lang.org/api/latest/JSON/Type.html) - The body parsed as [`JSON::Type`](https://crystal-lang.org/api/latest/JSON/Type.html)
 
+### Frameworks
+
+#### Kemal
+
+Kemal doesn't run `HTTP::Server#listen` when `ENV["KEMAL_ENV"]` is `"test"`, so you need to set `MassSpec.server` manually.
+
+Kemal DSL and `MassSpec::GlobalDSL` have same method names, so you need to use `MassSpec.get` instead of `get` without `include MassSpec::GlobalDSL`, and so do the other verbs and getters.
+
+```crystal
+ENV["KEMAL_ENV"] = "test"
+require "spec"
+require "mass_spec"
+require "kemal"
+
+get "/hello" do
+  {hello: "kemal"}.to_json
+end
+
+Kemal.run do |config|
+  MassSpec.server = config.server.not_nil! # set `MassSpec.server` manually
+end
+
+describe "/hello" do
+  it "says hello to Kemal" do
+    MassSpec.get "/hello" # `MassSpec.get` instead of `get`
+
+    MassSpec.json_body.should eq({"hello" => "kemal"}) # `MassSpec.json_body` instead of `json_body`
+  end
+end
+```
+
 ## Contributing
 
 1. Fork it ( https://github.com/c910335/mass-spec/fork )
