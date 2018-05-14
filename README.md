@@ -94,6 +94,44 @@ describe "/hello" do
 end
 ```
 
+#### Amber
+
+**Note**: Mass Spec is compatible with **master** but **not v0.7.2** currently.
+
+```crystal
+# src/controllers/hello_controller.cr
+class HelloController < Amber::Controller::Base
+  def hello
+    respond_with { json({"hello" => "amber"}) }
+  end
+end
+
+# config/routes.cr
+Amber::Server.configure do |app|
+  routes :web do
+    get "/hello", HelloController, :hello
+  end
+end
+
+# spec/spec_helper.cr
+ENV["AMBER_ENV"] = "test"
+require "spec"
+require "mass_spec"
+require "../src/*" # not `require "../config/*"`
+include MassSpec::GlobalDSL
+
+# spec/controllers/hello_controller_spec.cr
+describe HelloController do
+  describe "GET #hello" do
+    it "says hello to Amber" do
+      get "/hello"
+
+      json_body.should eq({"hello" => "amber"})
+    end
+  end
+end
+```
+
 ## Contributing
 
 1. Fork it ( https://github.com/c910335/mass-spec/fork )
