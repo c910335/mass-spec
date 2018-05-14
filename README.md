@@ -13,7 +13,7 @@ Add this to your application's `shard.yml`:
 ```yaml
 development_dependencies:
   mass_spec:
-    github: c910335/mass_spec
+    github: c910335/mass-spec
 ```
 
 ## Usage
