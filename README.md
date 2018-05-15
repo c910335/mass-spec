@@ -6,9 +6,9 @@
 
 Web API testing library
 
-Mass Spec prevents the [`HTTP::Server`](https://crystal-lang.org/api/latest/HTTP/Server.html) from starting a [`TCPServer`](https://crystal-lang.org/api/latest/TCPServer.html) and use [`IO::Memory`](https://crystal-lang.org/api/latest/IO/Memory.html) instead of [`TCPSocket`](https://crystal-lang.org/api/latest/TCPSocket.html) for fast testing.
+Mass Spec prevents [`HTTP::Server`](https://crystal-lang.org/api/latest/HTTP/Server.html) from starting a [`TCPServer`](https://crystal-lang.org/api/latest/TCPServer.html) and use [`IO::Memory`](https://crystal-lang.org/api/latest/IO/Memory.html) instead of [`TCPSocket`](https://crystal-lang.org/api/latest/TCPSocket.html) for fast testing.
 
-Because Mass Spec works with standard library, it can easily support the frameworks based on [`HTTP::Server`](https://crystal-lang.org/api/latest/HTTP/Server.html).
+Since Mass Spec works with standard library, it can easily support the frameworks based on [`HTTP::Server`](https://crystal-lang.org/api/latest/HTTP/Server.html).
 
 ## Installation
 
