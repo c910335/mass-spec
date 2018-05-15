@@ -1,5 +1,9 @@
 # Mass Spec
 
+[![Build Status](https://travis-ci.org/c910335/mass-spec.svg?branch=master)](https://travis-ci.org/c910335/mass-spec)
+[![GitHub releases](https://img.shields.io/github/release/c910335/mass-spec.svg)](https://github.com/c910335/mass-spec/releases)
+[![GitHub license](https://img.shields.io/github/license/c910335/mass-spec.svg)](https://github.com/c910335/mass-spec/blob/master/LICENSE)
+
 Web API testing library
 
 Mass Spec prevents the [`HTTP::Server`](https://crystal-lang.org/api/latest/HTTP/Server.html) from starting a [`TCPServer`](https://crystal-lang.org/api/latest/TCPServer.html) and use [`IO::Memory`](https://crystal-lang.org/api/latest/IO/Memory.html) instead of [`TCPSocket`](https://crystal-lang.org/api/latest/TCPSocket.html) for fast testing.
