@@ -85,7 +85,7 @@ Kemal.run do |config|
   MassSpec.server = config.server.not_nil! # set `MassSpec.server` manually
 end
 
-describe "/hello" do
+describe "GET /hello" do
   it "says hello to Kemal" do
     MassSpec.get "/hello" # `MassSpec.get` instead of `get`
 
@@ -96,7 +96,7 @@ end
 
 #### Amber
 
-**Note**: Mass Spec is compatible with **master** but **not v0.7.2** currently.
+**Note**: Mass Spec is **only** compatible with **master** but **not v0.7.2** currently.
 
 ```crystal
 # src/controllers/hello_controller.cr
@@ -107,7 +107,7 @@ class HelloController < Amber::Controller::Base
 end
 
 # config/routes.cr
-Amber::Server.configure do |app|
+Amber::Server.configure do
   routes :web do
     get "/hello", HelloController, :hello
   end

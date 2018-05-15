@@ -11,7 +11,7 @@ Kemal.run do |config|
   MassSpec.server = config.server.not_nil!
 end
 
-describe "/hello" do
+describe "GET /hello" do
   it "says hello to Kemal" do
     MassSpec.get "/hello"
 
