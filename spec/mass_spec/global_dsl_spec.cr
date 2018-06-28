@@ -1,6 +1,6 @@
 require "./spec_helper"
 
-server = HTTP::Server.new(8080) do |context|
+server = HTTP::Server.new do |context|
   context.response.content_type = "application/json"
   context.response.headers["X-HTTP-Method"] = context.request.method
   context.response.print({path: context.request.path, method: context.request.method}.to_json)
