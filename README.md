@@ -27,7 +27,7 @@ require "spec"
 require "mass_spec"
 include MassSpec::GlobalDSL
 
-server = HTTP::Server.new(8080) do |context|
+server = HTTP::Server.new do |context|
   context.response.content_type = "application/json"
   context.response.print({path: context.request.path}.to_json)
 end
@@ -50,22 +50,22 @@ end
 
 Mass Spec supports the following HTTP verbs via [`HTTP::Client`](https://crystal-lang.org/api/latest/HTTP/Client.html), and the usage of them is the same as [`HTTP::Client`](https://crystal-lang.org/api/latest/HTTP/Client.html).
 
-- [`#get`](https://crystal-lang.org/api/latest/HTTP/Client.html#get%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AHash%28String%2CString%29%7CNamedTuple%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method)
-- [`#head`](https://crystal-lang.org/api/latest/HTTP/Client.html#head%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AHash%28String%2CString%29%7CNamedTuple%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method)
-- [`#post`](https://crystal-lang.org/api/latest/HTTP/Client.html#post%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AHash%28String%2CString%29%7CNamedTuple%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method)
-- [`#put`](https://crystal-lang.org/api/latest/HTTP/Client.html#put%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2Cbody%3ABodyType%3Dnil%2C%26block%29-instance-method)
-- [`#patch`](https://crystal-lang.org/api/latest/HTTP/Client.html#patch%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AHash%28String%2CString%29%7CNamedTuple%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method)
-- [`#delete`](https://crystal-lang.org/api/latest/HTTP/Client.html#delete%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2Cbody%3ABodyType%3Dnil%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method)
+- [`#get`](https://crystal-lang.org/api/0.25.0/HTTP/Client.html#get%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AHash%28String%2CString%29%7CNamedTuple%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method)
+- [`#head`](https://crystal-lang.org/api/0.25.0/HTTP/Client.html#head%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AHash%28String%2CString%29%7CNamedTuple%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method)
+- [`#post`](https://crystal-lang.org/api/0.25.0/HTTP/Client.html#post%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AHash%28String%2CString%29%7CNamedTuple%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method)
+- [`#put`](https://crystal-lang.org/api/0.25.0/HTTP/Client.html#put%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2Cbody%3ABodyType%3Dnil%2C%26block%29-instance-method)
+- [`#patch`](https://crystal-lang.org/api/0.25.0/HTTP/Client.html#patch%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AHash%28String%2CString%29%7CNamedTuple%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method)
+- [`#delete`](https://crystal-lang.org/api/0.25.0/HTTP/Client.html#delete%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2Cbody%3ABodyType%3Dnil%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method)
 
 ### Handling Responses
 
 After a request, you can access these getters.
 
-- response : [`HTTP::Client::Response`](https://crystal-lang.org/api/latest/HTTP/Client/Response.html)
-- status_code : [`Int32`](https://crystal-lang.org/api/latest/Int32.html)
-- headers : [`HTTP::Headers`](https://crystal-lang.org/api/latest/HTTP/Headers.html)
-- body : [`String`](https://crystal-lang.org/api/latest/String.html)
-- json_body : [`JSON::Type`](https://crystal-lang.org/api/latest/JSON/Type.html) - The body parsed as [`JSON::Type`](https://crystal-lang.org/api/latest/JSON/Type.html)
+- response : [`HTTP::Client::Response`](https://crystal-lang.org/api/0.25.0/HTTP/Client/Response.html)
+- status_code : [`Int32`](https://crystal-lang.org/api/0.25.0/Int32.html)
+- headers : [`HTTP::Headers`](https://crystal-lang.org/api/0.25.0/HTTP/Headers.html)
+- body : [`String`](https://crystal-lang.org/api/0.25.0/String.html)
+- json_body : [`JSON::Any::Type`](https://crystal-lang.org/api/0.25.0/JSON/Any/Type.html) - The body parsed as [`JSON::Any::Type`](https://crystal-lang.org/api/0.25.0/JSON/Any/Type.html)
 
 ### Frameworks
 
@@ -99,8 +99,6 @@ end
 ```
 
 #### Amber
-
-**Note**: Mass Spec is **only** compatible with **master** but **not v0.7.2** currently.
 
 ```crystal
 # src/controllers/hello_controller.cr

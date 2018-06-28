@@ -5,7 +5,7 @@ module MassSpec::Properties
     class_getter! headers : HTTP::Headers
     class_getter! status_code : Int32
     class_getter! body : String
-    class_getter! json_body : JSON::Type
+    class_getter! json_body : JSON::Any::Type
 
     def self.response=(@@response)
       @@headers = response.headers

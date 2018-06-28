@@ -8,5 +8,5 @@ script:
   - crystal spec spec/frameworks/amber_spec.cr
   - crystal spec spec/frameworks/kemal_spec.cr
   - crystal spec spec/mass_spec
-  - crystal tool format --check src spec
+  - crystal tool format --check
   - ameba
