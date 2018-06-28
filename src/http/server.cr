@@ -1,5 +1,11 @@
 class HTTP::Server
-  def listen(reuse_port = false)
+  def bind_tcp(host : String, port : Int32, reuse_port : Bool = false)
+  end
+
+  def bind_tcp(port : Int32, reuse_port : Bool = false)
+  end
+
+  def listen
     MassSpec.server = self
   end
 
