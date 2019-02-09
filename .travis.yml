@@ -1,12 +1,8 @@
 language: crystal
 
-install:
-  - pushd ~ && git clone https://github.com/veelenga/ameba.git && cd ameba && make build && export PATH=$PATH:$PWD/bin && popd
-  - shards install
-
 script:
   - crystal spec spec/frameworks/amber_spec.cr
   - crystal spec spec/frameworks/kemal_spec.cr
   - crystal spec spec/mass_spec
   - crystal tool format --check
-  - ameba
+  - bin/ameba
