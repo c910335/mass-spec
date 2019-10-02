@@ -3,6 +3,7 @@ language: crystal
 script:
   - crystal spec spec/frameworks/amber_spec.cr
   - crystal spec spec/frameworks/kemal_spec.cr
-  - crystal spec spec/mass_spec
+  - crystal spec/mass_spec/global_dsl_spec.cr
+  - crystal spec/mass_spec/readme_spec.cr
   - crystal tool format --check
   - bin/ameba
