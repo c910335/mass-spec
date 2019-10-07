@@ -50,9 +50,15 @@ describe "Server" do
       "Adun Toridas!"        => "Adun hide you",
       "Nahda gahla"          => nil,
     })
+
     json_body.should contain({
       "Khassar de templari!" => "From order comes justice!",
       "Adun Toridas!"        => String,
+    })
+    json_body.should match({
+      "Khassar de templari!" => String,
+      "Adun Toridas!"        => "Adun hide you",
+      "Nahda gahla"          => Nil,
     })
   end
 end
