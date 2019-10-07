@@ -1,7 +1,7 @@
 language: crystal
 
 script:
-  - crystal spec spec/frameworks/amber_spec.cr spec/mass_spec/client_spec.cr spec/mass_spec/global_dsl_spec.cr spec/mass_spec/readme_spec.cr
+  - crystal spec spec/frameworks/amber_spec.cr spec/json/any_spec.cr spec/mass_spec/client_spec.cr spec/mass_spec/global_dsl_spec.cr spec/mass_spec/readme_spec.cr
   - crystal spec spec/frameworks/kemal_spec.cr
   - crystal tool format --check
   - bin/ameba
