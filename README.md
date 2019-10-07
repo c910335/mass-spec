@@ -29,19 +29,31 @@ include MassSpec::GlobalDSL
 
 server = HTTP::Server.new do |context|
   context.response.content_type = "application/json"
-  context.response.print({path: context.request.path}.to_json)
+  context.response.print(context.request.body.try &.gets_to_end)
 end
 
 server.listen
 
 describe "Server" do
-  it "returns the path in json" do
-    get("/nas/beru/uhn'adarr")
+  it "echoes in json" do
+    post("/", body: {
+      "Khassar de templari!" => "From order comes justice!",
+      "Adun Toridas!"        => "Adun hide you",
+      "Nahda gahla"          => nil,
+    }.to_json)
 
     status_code.should eq(200)
     headers.should contain({"Content-Type", ["application/json"]})
-    body.should eq(%({"path":"/nas/beru/uhn'adarr"}))
-    json_body.should eq({"path" => "/nas/beru/uhn'adarr"})
+    body.should eq(%({"Khassar de templari!":"From order comes justice!","Adun Toridas!":"Adun hide you","Nahda gahla":null}))
+    json_body.should eq({
+      "Khassar de templari!" => "From order comes justice!",
+      "Adun Toridas!"        => "Adun hide you",
+      "Nahda gahla"          => nil,
+    })
+    json_body.should contain({
+      "Khassar de templari!" => "From order comes justice!",
+      "Adun Toridas!"        => String,
+    })
   end
 end
 ```
@@ -50,22 +62,52 @@ end
 
 Mass Spec supports the following HTTP verbs via [`HTTP::Client`](https://crystal-lang.org/api/latest/HTTP/Client.html), and the usage of them is the same as [`HTTP::Client`](https://crystal-lang.org/api/latest/HTTP/Client.html).
 
-- [`#get`](https://crystal-lang.org/api/0.25.0/HTTP/Client.html#get%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AHash%28String%2CString%29%7CNamedTuple%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method)
-- [`#head`](https://crystal-lang.org/api/0.25.0/HTTP/Client.html#head%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AHash%28String%2CString%29%7CNamedTuple%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method)
-- [`#post`](https://crystal-lang.org/api/0.25.0/HTTP/Client.html#post%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AHash%28String%2CString%29%7CNamedTuple%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method)
-- [`#put`](https://crystal-lang.org/api/0.25.0/HTTP/Client.html#put%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2Cbody%3ABodyType%3Dnil%2C%26block%29-instance-method)
-- [`#patch`](https://crystal-lang.org/api/0.25.0/HTTP/Client.html#patch%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AHash%28String%2CString%29%7CNamedTuple%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method)
-- [`#delete`](https://crystal-lang.org/api/0.25.0/HTTP/Client.html#delete%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2Cbody%3ABodyType%3Dnil%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method)
+- [`#get`](https://crystal-lang.org/api/latest/HTTP/Client.html#get%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AHash%28String%2CString%29%7CNamedTuple%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method)
+- [`#head`](https://crystal-lang.org/api/latest/HTTP/Client.html#head%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AHash%28String%2CString%29%7CNamedTuple%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method)
+- [`#post`](https://crystal-lang.org/api/latest/HTTP/Client.html#post%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AHash%28String%2CString%29%7CNamedTuple%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method)
+- [`#put`](https://crystal-lang.org/api/latest/HTTP/Client.html#put%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2Cbody%3ABodyType%3Dnil%2C%26block%29-instance-method)
+- [`#patch`](https://crystal-lang.org/api/latest/HTTP/Client.html#patch%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AHash%28String%2CString%29%7CNamedTuple%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method)
+- [`#delete`](https://crystal-lang.org/api/latest/HTTP/Client.html#delete%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2Cbody%3ABodyType%3Dnil%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method)
 
 ### Handling Responses
 
 After a request, you can access these getters.
 
-- response : [`HTTP::Client::Response`](https://crystal-lang.org/api/0.25.0/HTTP/Client/Response.html)
-- status_code : [`Int32`](https://crystal-lang.org/api/0.25.0/Int32.html)
-- headers : [`HTTP::Headers`](https://crystal-lang.org/api/0.25.0/HTTP/Headers.html)
-- body : [`String`](https://crystal-lang.org/api/0.25.0/String.html)
-- json_body : [`JSON::Any::Type`](https://crystal-lang.org/api/0.25.0/JSON/Any/Type.html) - The body parsed as [`JSON::Any::Type`](https://crystal-lang.org/api/0.25.0/JSON/Any/Type.html)
+- response : [`HTTP::Client::Response`](https://crystal-lang.org/api/latest/HTTP/Client/Response.html)
+- status_code : [`Int32`](https://crystal-lang.org/api/latest/Int32.html)
+- headers : [`HTTP::Headers`](https://crystal-lang.org/api/latest/HTTP/Headers.html)
+- body : [`String`](https://crystal-lang.org/api/latest/String.html)
+- json_body : [`JSON::Any`](https://crystal-lang.org/api/latest/JSON/Any.html) - The body parsed as [`JSON::Any`](https://crystal-lang.org/api/latest/JSON/Any.html)
+
+### Expectations
+
+Besides built-in expectations, Mass Spec also provides `contain` for `JSON::Any`.
+
+```crystal
+describe "contain with JSON::Any" do
+  it "checks values or types" do
+    JSON.parse(%({"array":[1,2,3],"number":1,"float_number":1.5,"string":"str","null":null,"hash":{"a":1}}))
+      .should contain({
+      "array"        => Array,
+      "number"       => 1,
+      "float_number" => Float64,
+      "string"       => "str",
+      "null"         => nil,
+      "hash"         => Hash,
+    })
+  end
+end
+```
+
+### Configuration
+
+You can specify `headers` that will be applied to every requests.
+
+```crystal
+MassSpec.configure do
+  headers({"Authorization" => "Bearer some_access_token"})
+end
+```
 
 ### Frameworks
 

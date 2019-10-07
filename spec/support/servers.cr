@@ -21,10 +21,10 @@ def with_path_method_server
   end.listen
 end
 
-def with_path_server
+def with_echo_server
   HTTP::Server.new do |context|
     context.response.content_type = "application/json"
-    context.response.print({path: context.request.path}.to_json)
+    context.response.print(context.request.body.try &.gets_to_end)
   end.listen
 end
 
