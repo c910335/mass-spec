@@ -81,17 +81,28 @@ After a request, you can access these getters.
 
 ### Expectations
 
-Besides built-in expectations, Mass Spec also provides `contain` for `JSON::Any`.
+Besides built-in expectations, Mass Spec also provides `contain` and `match` for `JSON::Any`.
 
 ```crystal
+json = JSON.parse(%({"array":[1,2,3],"number":1,"float_number":1.5,"string":"str","null":null,"hash":{"a":1}}))
+
 describe "contain with JSON::Any" do
-  it "checks values or types" do
-    JSON.parse(%({"array":[1,2,3],"number":1,"float_number":1.5,"string":"str","null":null,"hash":{"a":1}}))
-      .should contain({
-      "array"        => Array,
-      "number"       => 1,
-      "float_number" => Float64,
-      "string"       => "str",
+  it "checks whether json contains the values or types" do
+    json.should contain({
+      "array"  => Array,
+      "number" => 1,
+      "hash"   => {"a" => Int64},
+    })
+  end
+end
+
+describe "match with JSON::Any" do
+  it "checks whether json matches the values or types" do
+    json.should match({
+      "array"        => [1, 2, 3],
+      "number"       => Int64,
+      "float_number" => 1.5,
+      "string"       => String,
       "null"         => nil,
       "hash"         => Hash,
     })
