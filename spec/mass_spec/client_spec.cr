@@ -1,15 +1,9 @@
 require "./spec_helper"
 
-server = HTTP::Server.new do |context|
-  context.response.content_type = "application/json"
-  context.response.print({headers: context.request.headers}.to_json)
-end
-
-server.listen
-
 describe MassSpec::Client do
   describe "#headers" do
     it "adds headers to configuration" do
+      with_headers_server
       MassSpec.configure { headers({"a" => "1", "b" => "2"}) }
       get "/"
 

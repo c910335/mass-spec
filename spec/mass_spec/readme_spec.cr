@@ -1,14 +1,8 @@
 require "./spec_helper"
 
-server = HTTP::Server.new do |context|
-  context.response.content_type = "application/json"
-  context.response.print({path: context.request.path}.to_json)
-end
-
-server.listen
-
 describe "Server" do
   it "returns the path in json" do
+    with_path_server
     get("/nas/beru/uhn'adarr")
 
     status_code.should eq(200)
