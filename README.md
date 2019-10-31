@@ -1,6 +1,6 @@
 # Mass Spec
 
-[![Build Status](https://travis-ci.org/c910335/mass-spec.svg?branch=master)](https://travis-ci.org/c910335/mass-spec)
+[![Build Status](https://travis-ci.com/c910335/mass-spec.svg?branch=master)](https://travis-ci.com/c910335/mass-spec)
 [![GitHub releases](https://img.shields.io/github/release/c910335/mass-spec.svg)](https://github.com/c910335/mass-spec/releases)
 [![GitHub license](https://img.shields.io/github/license/c910335/mass-spec.svg)](https://github.com/c910335/mass-spec/blob/master/LICENSE)
 
