@@ -13,52 +13,36 @@ struct JSON::Any
   end
 
   def includes?(obj) : Bool
-    {% begin %}
-      case obj
-      when Hash
-        obj.all? do |k, v|
-          self[k]? && self[k].includes? v
-        end
-      when Array
-        i = -1
-        if as_a?
-          as_a.size == obj.size && obj.all? do |e|
-            i += 1
-            self[i]? && self[i].includes? e
-          end
-        else
-          false
-        end
-      else
-        equal?(obj)
+    case obj
+    when Hash
+      obj.all? do |k, v|
+        self[k]? && self[k].includes? v
       end
-    {% end %}
+    when Array
+      i = -1
+      !as_a?.nil? && as_a.size == obj.size && obj.all? do |e|
+        i += 1
+        self[i]? && self[i].includes? e
+      end
+    else
+      equal?(obj)
+    end
   end
 
   def =~(obj) : Bool
-    {% begin %}
-      case obj
-      when Hash
-        if as_h?
-          as_h.all? do |k, v|
-            obj.has_key?(k) && v =~ obj[k]
-          end
-        else
-          false
-        end
-      when Array
-        i = -1
-        if as_a?
-          as_a.size == obj.size && obj.all? do |e|
-            i += 1
-            self[i]? && self[i] =~ e
-          end
-        else
-          false
-        end
-      else
-        equal?(obj)
+    case obj
+    when Hash
+      !as_h?.nil? && as_h.size == obj.size && as_h.all? do |k, v|
+        obj.has_key?(k) && v =~ obj[k]
       end
-    {% end %}
+    when Array
+      i = -1
+      !as_a?.nil? && as_a.size == obj.size && obj.all? do |e|
+        i += 1
+        self[i]? && self[i] =~ e
+      end
+    else
+      equal?(obj)
+    end
   end
 end
