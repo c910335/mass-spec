@@ -58,6 +58,17 @@ describe JSON::Any do
           "a" => 2,
         },
       })
+      json.should_not match({
+        "array"        => [1, 2, 3],
+        "number"       => 1,
+        "float_number" => 1.5,
+        "string"       => "str",
+        "null"         => nil,
+        "hash"         => {
+          "a" => 1,
+        },
+        "boolean" => true,
+      })
     end
 
     it "checks whether json matches the types of the object" do
@@ -82,6 +93,15 @@ describe JSON::Any do
         "string"       => String,
         "null"         => Nil,
         "hash"         => Hash,
+      })
+      json.should_not match({
+        "array"        => Array,
+        "number"       => Int64,
+        "float_number" => Float64,
+        "string"       => String,
+        "null"         => Nil,
+        "hash"         => Hash,
+        "boolean"      => Bool,
       })
     end
   end

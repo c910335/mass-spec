@@ -5,7 +5,7 @@ version: 0.3.1
 authors:
   - Tatsiujin Chin <c910335@gmail.com>
 
-crystal: 0.31.1
+crystal: 0.34.0
 
 license: MIT
 
@@ -14,10 +14,10 @@ development_dependencies:
     github: amberframework/amber
     branch: master
 
-  kemal:
-    github: kemalcr/kemal
-    branch: master
+# kemal:
+#   github: kemalcr/kemal
+#   branch: master
 
   ameba:
     github: crystal-ameba/ameba
-    version: ~> 0.10.1
+    version: ~> 0.12.1
