@@ -128,7 +128,7 @@ end
 
 ### Frameworks
 
-#### Kemal
+#### [Kemal](https://github.com/kemalcr/kemal)
 
 Kemal doesn't run `HTTP::Server#listen` when `ENV["KEMAL_ENV"]` is `"test"`, so you need to set `MassSpec.server` manually.
 
@@ -157,7 +157,7 @@ describe "GET /hello" do
 end
 ```
 
-#### Amber
+#### [Amber](https://github.com/amberframework/amber)
 
 ```crystal
 # src/controllers/hello_controller.cr
