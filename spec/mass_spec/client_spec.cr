@@ -7,7 +7,7 @@ describe MassSpec::Client do
       MassSpec.configure { headers({"Authorization" => "Bearer some_access_token"}) }
       get "/"
 
-      MassSpec::Client.instance.headers.should eq({"Authorization" => "Bearer some_access_token"})
+      MassSpec::Client.instance.headers.should eq(HTTP::Headers{"Authorization" => "Bearer some_access_token"})
       json_body.should contain({"headers" => {"Authorization" => "Bearer some_access_token"}})
     end
   end
