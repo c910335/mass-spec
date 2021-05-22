@@ -1,6 +1,6 @@
 # Mass Spec
 
-[![Build Status](https://travis-ci.com/c910335/mass-spec.svg?branch=master)](https://travis-ci.com/c910335/mass-spec)
+[![Crystal CI](https://github.com/c910335/mass-spec/actions/workflows/crystal.yml/badge.svg)](https://github.com/c910335/mass-spec/actions/workflows/crystal.yml)
 [![GitHub releases](https://img.shields.io/github/release/c910335/mass-spec.svg)](https://github.com/c910335/mass-spec/releases)
 [![GitHub license](https://img.shields.io/github/license/c910335/mass-spec.svg)](https://github.com/c910335/mass-spec/blob/master/LICENSE)
 

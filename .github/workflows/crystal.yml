@@ -1,0 +1,29 @@
+name: Crystal CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  schedule:
+    - cron: "0 23 * * 6"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: crystallang/crystal
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: shards install --ignore-crystal-version
+      - name: Run general tests
+        run: crystal spec spec/json spec/mass_spec
+      - name: Run test for Amber
+        run: crystal spec spec/frameworks/amber_spec.cr
+      - name: Run test for Kemal
+        run: crystal spec spec/frameworks/kemal_spec.cr
+      - name: Check formatting
+        run: crystal tool format --check
+      - name: Lint
+        run: bin/ameba
