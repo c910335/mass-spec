@@ -3,20 +3,20 @@ class MassSpec::Client < HTTP::Client
   getter headers = HTTP::Headers.new
 
   def self.instance
-    @@client ||= new("dummy")
+    @@client ||= new("mock")
   end
 
   def headers(headers)
     @headers.merge! headers
   end
 
-  private def exec_internal(request)
+  private def send_request(request)
     request.headers.merge! @headers
-    decompress = set_defaults request
+    set_defaults request
+    run_before_request_callbacks(request)
     input = IO::Memory.new
     request.to_io(input)
     input.rewind
-    output = MassSpec.server.call(input)
-    HTTP::Client::Response.from_io(output, ignore_body: request.ignore_body?, decompress: decompress)
+    @io = MassSpec.server.call(input)
   end
 end
