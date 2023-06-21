@@ -132,27 +132,35 @@ end
 
 Kemal doesn't run `HTTP::Server#listen` when `ENV["KEMAL_ENV"]` is `"test"`, so you need to set `MassSpec.server` manually.
 
-Kemal DSL and `MassSpec::GlobalDSL` have same method names, so you need to use `MassSpec.get` instead of `get` without `include MassSpec::GlobalDSL`, and so do the other verbs and getters.
-
 ```crystal
-ENV["KEMAL_ENV"] = "test"
-require "spec"
-require "mass_spec"
+# src/your_app.cr
 require "kemal"
 
 get "/hello" do
   {hello: "kemal"}.to_json
 end
 
+Kemal.run
+
+# spec/spec_helper.cr
+ENV["KEMAL_ENV"] = "test"
+require "spec"
+require "mass_spec"
+require "../src/*"
+include MassSpec::GlobalDSL
+
 Kemal.run do |config|
   MassSpec.server = config.server.not_nil! # set `MassSpec.server` manually
 end
 
+# spec/your_app_spec.cr
+require "./spec_helper"
+
 describe "GET /hello" do
   it "says hello to Kemal" do
-    MassSpec.get "/hello" # `MassSpec.get` instead of `get`
+    get "/hello"
 
-    MassSpec.json_body.should eq({"hello" => "kemal"}) # `MassSpec.json_body` instead of `json_body`
+    json_body.should eq({"hello" => "kemal"})
   end
 end
 ```
@@ -181,7 +189,12 @@ require "mass_spec"
 require "../src/*" # not `require "../config/*"`
 include MassSpec::GlobalDSL
 
+# spec/controllers/spec_helper.cr
+require "../spec_helper"
+
 # spec/controllers/hello_controller_spec.cr
+require "./spec_helper"
+
 describe HelloController do
   describe "GET #hello" do
     it "says hello to Amber" do
