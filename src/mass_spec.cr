@@ -9,7 +9,7 @@ module MassSpec
   include Properties
   extend GlobalDSL
 
-  def self.configure
+  def self.configure(&)
     with MassSpec::Client.instance yield
   end
 end

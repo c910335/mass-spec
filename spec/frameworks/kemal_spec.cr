@@ -5,7 +5,7 @@ require "../support/kemal_server"
 include MassSpec::GlobalDSL
 
 Kemal.run do |config|
-  MassSpec.server = config.server.not_nil!
+  MassSpec.server = config.server.not_nil! # ameba:disable Lint/NotNil
 end
 
 describe "GET /hello" do
